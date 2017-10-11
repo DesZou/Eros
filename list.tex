@@ -1,0 +1,848 @@
+\documentclass[landscape]{ctexart}
+    \usepackage{fontspec}
+    \usepackage{colortbl}
+    \usepackage{longtable}
+    \usepackage{amsmath}
+    \usepackage{graphicx}
+    \usepackage{ctex}
+    \usepackage[colorlinks,linkcolor=blue]{hyperref}
+    \usepackage[top = 1.0in, bottom = 1.0in, left = 1.0in, right = 1.0in]{geometry}
+    % \setmainfont{PingFang SC}
+    % \setsansfont{Fira Code}
+    \title{Trust the process}
+    \author{Dez}
+    \date{\today}
+    
+    \begin{document}
+    \maketitle
+    
+\begin{longtable}{|c|c|c|c|c|c|c|}
+        \hline
+        Name & Number & Status & Time & Algorithm & Tag & Other \\
+        \hline
+        搭配飞行员 & LOJ6000 & Accepted & 21/7 & Hungary & 二分图匹配 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            裸的匈牙利算法，用了个邻接矩阵跑了倒数第一？
+            二分图匹配的基本思想就是能配就配，但是前面的
+            要给后面的让路，自己往后面挤，这样一个一个向后，
+            就能达到最大匹配。
+        } \\
+        \hline
+        太空飞行计划 & LOJ6001 & Accepted & 21/7 & Dinic & 最大权闭合子图 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            \href{http://www.cnblogs.com/TreeDream/p/5942354.html}{\color{blue}资料１}\newline
+            \href{http://www.cnblogs.com/wuyiqi/archive/2012/03/12/2391960.html}{\color{blue}资料２}\newline
+            把源点向所有实验建边，边权为实验的收入
+            所有器材向汇点连边,边权为器材的价格，
+            \underline{在实验和所需器材之间连边，边权为正无穷大。}
+            然后求出网络中的最大权闭合子图，即为答案。
+        } \\
+        \hline
+        奇怪的计算器 & LOJ2228, AHOI2014 & Accepted & 23/7 & Segment Tree & 线段树 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            其实就是维护三个标记,加,乘,还有一个特殊的加.
+            但这题难在值有一个范围,每操作一次都要把超出范围的值改回来,
+            一开始思路不清,盲目加标记,搞得不好管理,后来看了题解才发现
+            只需要三个标记就可以了.就这一题整整卡了我一天.
+        } \\
+        \hline
+        最小路径覆盖 & LOJ6002 & Accepted & 23/7 & Dinic & 二分图匹配，最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            在二分图匹配的时候记一下前驱和后继就可以得出路径来，
+            另外还有用最大流的做法，下次会做出来。8.12.P.S：估计不会做了。
+        } \\
+        \hline
+        魔术球 & LOJ6003 & Accepted & 25/7 & Dinic & 最小路径覆盖，贪心 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            感觉这题有点暴力。。。从一开始每次加一个数，然后枚举每个小于它的数，
+            和为完全平方的话就连一条边(流量为一)，然后向源点和汇点各连一条边(要拆点)。
+            每次跑一遍最大流，直到超过限制为止，这样就转化为最小路径覆盖的问题了。
+            并且这题可以贪心。。。
+        } \\
+        \hline
+        圆桌聚餐 & LOJ6004 & Accepted & 25/7 & Dinic & 最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            每张桌子向汇点连边，流量为可载人数。源点向每个单位连边，流量为人数。
+            \underline{每个单位向每张桌子连一条流量为一的边}，如果最大流为总人数，则有解。
+        } \\
+        \hline
+        最长递增子序列 & LOJ6005 & Accepted & 26/7 & Dinic & 动态规划，最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            这题给了三个子问题，没想到第一个是要用DP求解的。
+            而后两问网络流的建模，需要用到DP中的标号来连边。
+            把所有标号相差一的点之间连边，流量均为一,求出最大流即可。
+            第二问只需把源点到第一个点与最后一个点到汇点的边的流量改为无穷即可。
+        } \\
+        \hline
+        试题库 & LOJ6006 & Accepted & 27/7 & Dinic & 最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            源点向每个试题的{\color{blue}种类}连边，流量为需要此种试题的数目。
+            然后每类向属于该类的具体试题连边，流量为一。试题向汇点连边。
+            最大流如果等于需要的试题总数，就有解，输出方案不难。
+        } \\
+        \hline
+        方格取数 & LOJ6007 & Accepted & 9/8 & Dinic & 二分图最大独立集 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            先出结论：二分图最大独立集等于权值和减去最小割。
+            把方格染成黑白二色，相邻的格子染成不同的颜色。
+            源点连接一种颜色，流量为点权，另一种颜色连接汇点，流量仍为点权。
+            最后在相邻的格子间连边，流量为无限大。
+            {\color{red}注意}：最后得到的最大流不是答案，要用权值和减去最大流。
+        } \\
+        \hline
+        餐巾计划 & LOJ6008 & Accepted & 10/8 & Mincost\&Maxflow & 最小费用最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            考虑餐巾的几种获得方式，购买新餐巾则直接从源点连边。
+            同时我们知道，一天一定会产生固定数量的脏餐巾，这些脏餐巾可能会被洗，
+            也可能直接丢弃，分别向两种洗法所需的天数之后的那天连边，再向汇点连费用为零，
+            流量无限的边。
+        } \\
+        \hline
+        最小费用流 & LOJ102 & Accepted & 10/8 & MCMF & 最小费用最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            模板。。。
+            记熟了。
+        } \\
+        \hline
+        Guess Number & LOJ6 & Accepted & 10/8 & Binary Search & 二分查找 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            一道交互题，搞半天还真没看懂题。
+            后来看了一下别人的代码才明白意思，顺便复习一下二分。
+        } \\
+        \hline
+        软件补丁 & LOJ6009 & Accepted & 11/8 & SPFA & 最短路 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            假的网络流。考虑 $n$ 不大于二十，可以用一个数表示当前软件的状态。
+            每次最短路转移时判断一下是否可以转移即可。
+        } \\
+        \hline
+        数字梯形 & LOJ6010 & Accepted & 12/8 & MCMF & 最小费用最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            模型比较明显。通过拆点完成第一个任务。
+            但是要注意的是这里的点权要建成负数。
+            第二个任务把拆的点之间的边流量变成 $\infty$ 即可。
+            {\color{red}注意：}最后一排点到汇点的流量也要改为 $\infty$ 。
+            第三个任务只要把除了起点是源点的弧的流量都改成 $\infty$ 即可。
+        } \\
+        \hline
+        运输问题 & LOJ6011 & Accepted & 13/8 & MCMF & 最小费用最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            建一个超级源点和超级汇点就可以解决问题了。
+            我一开始还觉得可以用二分图匹配来做呢，因为题中也只给了两种点。
+        } \\
+        \hline
+        分配问题 & LOJ6012 & Accepted & 14/8 & MCMF & 最小费用最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            和运输问题差不多。但是 $Pyh$ 说有一种 $KM$ 算法可以做二分图最佳匹配。
+        } \\
+        \hline
+        负载平衡 & LOJ6013 & Accepted & 15/8 & MCMF & 最小费用最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            看着有点不像网络流，是一个环。
+            但是根据题意我们可以事先求得最后每个点的库存数目。然后多了的用源点连，
+            少了的连汇点。然后向左右两边连费用为一的边。求最小费用最大流即可。
+        } \\
+        \hline
+        最长Ｋ可重区间集 & LOJ6014 & Accepted & 15/8 & MCMF & 最小费用最大流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            把输入的区间按左端点从小到大排序。
+            每个区间都和与自己没有交集且在自己右边的区间连边。
+            每个区间都和源点，汇点连边。源点连出的边费用为一，其余的均为零。
+            但是题中给了一个 $k$ 值，这个很不好控制。最后实现的方法是给源点拆点。
+            即：把源点分成两个点，中间连一条流量为 $k$ 的边。
+            最后最小费用最大流出解。
+        } \\
+        \hline
+        网络吞吐量 & LOJ2096 & \color{red}WrongAnswer & 17/8 & Dijstra & 分层图，最短路 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            根据题意来看应该可以用最小费用最大流求解。
+            只要求出最短路然后增广即可，但是只有 $60$ 分。
+            大部分人用的是 $Dijstra$ 算法跑最短路。
+            我是试着用最小费用最大流的模板去套。
+        } \\
+        \hline
+        星际转移 & LOJ6015 & Accepted & 17/8 & Dinic & 最大流，层次图 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            这题先用并查集判断是否有解。然后分天数建图。
+            记 $station_{i,j}$ 为代表第 $i$ 个空间站第 $j$ 天的节点。
+            因为空间站可以存无限人，所以在 $station_{i,j}$ 和 $station_{i-1,j}$ 之间连流量为 $\infty$ 的弧。
+            记 $ship_{i,j}$ 为代表第 $i$ 艘飞船第 $j$ 天的位置。
+            我们在 $ship_{i-1,j}$ 和 $ship_{i,j}$　间连流量为船的载量的弧。
+            总共有 $k$ 个人需要运送，我们可以给源点拆点，连流量为 $k$ 的弧。
+            每天加弧之后跑最大流，直到流量等于 $k$ 时即为答案。
+            我们每天加弧之后跑的最大流并没有重新开始，所以复杂度只是一次大的最大流。
+        } \\
+        \hline
+        孤岛营救问题 & LOJ6121 & Accepted & 18/8 & spfa & 最短路，状态压缩 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            又是假网络流。。。
+            由于门的类型只有十来种，我们可以用整数来表示状态。
+            用 $(x,y,s)$ 来表示坐标是 $x,y$ 钥匙状态为 $s$ 的点。
+            用 $spfa$ 求最短路即可。
+        } \\
+        \hline
+        无源汇有上下界可行流 & LOJ115 & Accepted & 20/8 & Dinic & 可行流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            把一条带上下界的弧拆成两条弧，一条是必要弧，即流量为原弧下界的弧。
+            另一条是自由弧，它是没有下界的。
+            记录每一个顶点必要弧的流量的出入度，新建超级源汇点，
+            如果入度大于初度，向汇点连边。
+            否则由源点向其连边。
+            如果附加的边全部满流（可用最大流是否等于源点连出的所有弧流量之和来判断），
+            则存在可行流。输出时附加弧和必要弧不输出，自由弧加上下界即可。
+        } \\
+        \hline
+        有源汇有上下界最大流 & LOJ116 & Accepted & 20/8 & Dinic & 最大流，可行流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            先要转化成无源汇的可行流判断是否有解。
+            建图和无源汇的差不多，但是要在原图的源汇点间连一条汇点到源点，流量为 $\infty$ 的弧。
+            这样形成循环流（并不知道起了什么作用），然后判定是否有解。
+            如果有解，把超级源汇点去掉，用原图的源汇点跑最大流即可（边不要恢复流量）。
+        } \\
+        \hline
+        有源汇有上下界最小流 & LOJ117 & Accepted & 21/8 & Dinic & 最小流，可行流 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            首先仍然是先跑出可行流，但是先不急着判定。
+            从原图的汇点向源点连流量为 $\infty$ 的弧，再跑一遍 $Dinic$ ，用两次答案之和去判断是否可行。
+            如果可行，第二次加入的弧的流量即为原图源点到汇点的最小流。（不会证。。。）
+        } \\
+        \hline
+        网络吞吐量＊ & LOJ2096 CQOI2015 & Accepted & 19/8 & MCMF & 最短路，分层图 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            已经修正程序， $spfa$ 的最小费用最大流可以跑过。（速度较慢）
+        } \\
+        \hline
+        sum & LOJ6220 & Accepted & 22/8 & Pigeonhole Principle & 鸽巢原理，数学 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            《组合数学》上的例题。
+            结论：给定 $m$ 个整数 $a_1,a_2,\cdots,a_m$ 存在满足 $0\leq k<l\leq m$ 的整数 $k$ 和 $l$，
+            使得 $a_{k+1}+a_{k+2}+\cdots +a_l$ 能够被 $m$ 整除。\newline
+            证明：我们考虑 ${a}$ 的前缀和，记 $sum_i$ 为 $a_1$ 到 $a_i$ 的和。
+            这样我们就得到了 $m$ 个前缀和，如果其中有一个数可以被 $m$ 整除，我们就得到了解。
+            如果没有，考虑除 $m$ 最多得到 $m-1$ 个余数，而我们有 $m$ 个和，那么必定有一个余数 $r$ 出现过两次，
+            可以表示为：
+            $$sum_i=xm+r$$
+            $$sum_{i+k}=ym+r$$
+            两式相减：
+            $$sum_{i+k}-sum_i=ym-r-xm+r$$
+            $$a_{i+1}+a_{i+2}+\cdots+a_{i+k}=(y-x)m$$
+        } \\
+        \hline
+        星际战争 & LUOGU3324 SDOI2015 & Accepted & 24/8 & Dinic & 最大流，二分查找 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            也是一个判定性问题，但是不是以整数为单位的。
+            所以不能叠加，而要用二分查找。好处在于这题不需要反复加边，只要改变流量即可。
+        } \\
+        \hline
+        最大获利 & VIJOS1352 NOI2006 & Accepted & 24/8 & Dinic & 最大权闭合子图 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            类似于太空飞行计划，但是这题每个点只会连出两条边。
+            画出图来感性理解一下就可以了。
+        } \\
+        \hline
+        切糕 & LUOGU3227 HNOI2013 & Accepted & 25/8 & Dinic & 最小割 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            先考虑没有距离限制的情况。那么对于每一个坐标 $(x,y)$ ，从 $1$ 到 $r$ 连出一条链来，
+            每一条边的流量限制是后一个点的不和谐值，画图可以看出在没有距离限制的时候，图的最小割就是答案。
+            再考虑如何将距离限制加入，方法是从高度为 $x (x>D)$ 的点向四周高度为 $x-D$ 的点连边，流量为 $\infty$ 。
+            这样当你割了超过距离限制的点的时候，流量可以通过这条逆向边流过，限制住了割，它本身也不可能成为割边。
+            题目得解。
+        } \\
+        \hline
+        植物大战僵尸 & NOI2009 VIJOS1067 & Accepted & 25/8 & Dinic & 最小割 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            最小割模型中可以加入各种奇奇怪怪的限制条件，表现在图中一般是流量为 $\infty$ 的弧。
+            原因是这样的弧自己不可能属于最小割，同时又能限制一些不合题意的选择。
+            在这题中限制就是一些植物可以保护另一些植物，位置在右侧的植物可以保护左侧的植物，
+            我们只需从保护的植物向被保护的植物连无限弧，就可以体现出这种保护。
+            但这题有一个特殊情况，如果出现循环保护的话，我们只能把环中的（以及受环中植物保护的，和受保护保护的。。。）所有植物删去，
+            因为很显然，我们不可能从它们那里拿到分数。跑网络流前用一遍拓扑排序，最后入度没有删完的就不用加到图中了。
+        } \\
+        \hline
+        维护全序集 & LOJ107 & Accepted & 27/8 & Splay Treap & 平衡树 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            复习无旋 $Treap$ 。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 8. 28} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：开关问题
+            \newline
+            没什么好说的，最短路。
+            \newline
+            第二题：潜入计划
+            \newline
+            基本上等同于孤岛营救计划，但是数据规模较大。这种题正适合用广搜写，然后存数据的时候一定想想到底需不需要。
+            这题就不用存下每个状态，只要存在队列里就可以了。
+            \newline
+            第三题： $Oliver$ 的愿望
+            \newline
+            动规，竟然没想出来。。。考虑方程 $f_i=max\{f_j+r_i\} (j>i+d_i)$ 。
+            先把 $r_i$ 提出来，考虑剩下的 $f_j$ 可以看出 $j$ 的可行范围是连续的一段，从 $i+d_i$ 到 $n$ 。
+            所以记 $g_i=max\{f_j\} (j\leq i)$ 所以转移方程就变成 $f_i=g_{i+d_i}+r_i$ 。时间复杂度 $O(n)$ 。。。
+            \newline
+            第四题：最后之战
+            \newline
+            啊啊啊数学题（╯‵□′）╯︵┻━┻
+            \newline
+            把题意用方程表示出来，然后一阵变形，枚举即可（说是这么说，有坑待填）。
+        } \\
+        \hline
+        食物链 & LOJ2060 HAOI2016 & Accepted & 29/8 & DFS & 记忆化搜索 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            刷水题。记下入度和出度每次搜索只从入度为零的点开始，然后记下每个点可以扩展出的链的条数，
+            搜到了直接用就可以了。题上还说注意单独的一种生物不算一条食物链。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 8. 29} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：石头花园
+            \newline
+            要么把石头坐标全变成 $x>y$ ，要么全变成 $x<y$ 。
+            这样能使面积最小，费用就要从里面选一个了。
+            \newline
+            第二题：立方体大作战
+            \newline
+            考虑两组相同数字的位置关系，要么完全不相干，要么相交，
+            要注意的是一组包含了另一组的情况。（占坑）
+            \newline
+            第三题：堆积木
+            \newline
+            （占坑）
+            \newline
+            第四题：天然气管道
+            \newline
+            观察一波，发现答案的式子是 $\sum{(y_i-y_j-x_i+x_j)}$ ，
+            无论 $i,j$ 怎么排其实都是不影响答案的，所以只要求和即可。
+            问题就只在于如何构造出一组可行的配对方案出来。
+            我们发现可以贪心求解，先把油井和中转站都按横坐标从大到小排序，
+            依次考虑每一个油井，求解一个油井前，先把横坐标大于它的中转站都加入平衡树中，
+            然后选取纵坐标小于它且最大的那个中转站配对。可以发现这样是可以构造出合法解的。（当然要数据本身合法）
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 8. 30} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：棋盘控制
+            \newline
+            智商下线。。。
+            从 $\sum_i{max\{value_{i,k}\}}$ 和 $\sum_j{max\{value_{k,j}\}}$ 中选取答案即可。
+            \newline
+            第二题：排列
+            \newline
+            $DP$ （占坑）
+            \newline
+            第三题：朝圣者
+            \newline
+            不会做
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 8. 31} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：砝码
+            \newline
+            题目需要求解的是最多能装砝码的个数，明显的，最优解装的一定会是最小的砝码，
+            所以我们可以给砝码排序，然后二分答案。
+            判定时要用堆来记录当前每个容器的空余容量，每次拿出最大的一个存当前砝码，砝码由大到小放入。
+            \newline
+            第二题：驾驶考试
+            \newline
+            可以看出是动态规划。每条边向左和向右的边是互不干扰的，所以我们分开考虑。
+            记 $fl_i$ 为第 $i$ 条边通向最左的边需要加的道路数， $fr_i$ 即为通向最右所需的道路数。
+            注意到要想使第 $i$ 条边连向最左（或最右）那他左边（右边）的边必须都能通到。
+            所以我们可以看出答案肯定是一组连续的边。
+            考虑状态转移，当第 $i$ 条边在距离 $v$ 处有一条边通向第 $i+1$ 条边，那么 $fl_{i+1,0\cdots v}$ 均可被赋值为 $fl_{i,v}$ 
+            这里我们可以用线段树优化区间修改。
+            更普遍的转移是 $fl_{i+1,k}=fl_{i,k}+1$ 这种转移可以用一个常数记下来，不用真的线段树更新。
+            注意最后答案还要减掉 $fl_i+fr_i=0$ 的边数，因为题目要求的能是新增多少边。求区间用尺取法。
+            \newline
+            第三题：四进制天平
+            \newline
+             $DP$ （占坑）
+            \newline
+            第四题：道路收费
+            \newline
+            把每个点和它的边之间连流量为 $1$ 的弧，二分图匹配出解。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 2} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题： $Split$ 
+            \newline
+            观察它的生成情况，发现是一个杨辉三角形。
+            每个在距离范围内的点对答案的贡献是 $(1+(-1)^{dis+1})\cdot \dbinom{\frac{time+dis}{2}}{time}$
+            \newline
+            第二题： $Move$ 
+            \newline
+            这个图是不可能搜出一个环然后回到已经出现过的状态的，再加上本来状态就不多，直接暴搜即可。
+            \newline
+            第三题： $Football$ 
+            \newline
+             $DP$ （强势占坑）
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 3} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题： $Math$
+            \newline
+            打开方程，发现每一项的系数都可以表示为 $\frac{ak}{b}+\frac{c(n-k)}{d}\; k=0,1,\cdots ,n$ 。
+            \newline
+            进一步化为：
+            $$\frac{adk+cbn-cbk}{bd}$$
+            $$\frac{(ad-cb)k+cbn}{bd}$$
+            到这一步，我们可以知道有理项的个数等于模线性方程 $(ad-cb)k=-cbn(mod\; bd)$ 在 $0$ 到 $n$ 范围内的解的个数。
+            可以用扩展欧几里得算法得到可行解的个数。
+            再考虑第二问，等价于在 $n-k+1+1$ 个位子里插入 $k$ 个数（当 $k>n-k+1+1$ 时为零）的方案数。
+            所以答案为 $\dbinom{k}{n-k+2}\cdot k! \cdot (n-k+1)!$ 。
+            \newline
+            第二题： $Walk$ 
+            \newline
+            会爆空间，所以要用滚动数组，所以又要用拓扑排序来确定转移次序。
+            然后 $DP$ 即可。
+            \newline
+            第三题： $String$ 
+            \newline
+            不会做。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 5} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：客户调查
+            \newline
+            递推即可。注意，排序要按照结束时间，大概是因为你更新时用的值是结束时间。
+            \newline
+            第二题：区间覆盖
+            \newline
+            排序之后把相邻且有公共部分的区间合并即可。
+            \newline
+            第三题：整数区间
+            \newline
+            可以看出选的数要尽可能的靠后，这样总数才能最小。
+            这题的排序也要按照区间末的坐标，因为区间没到最末的话就有可能与前面重叠。
+            \newline
+            第四题：集合划分
+            \newline
+            最大化最小值，可以采用二分，用并查集维护点之间的关系，每次多合并一个集合就把集合总数减一，
+            如果最后剩下的集合数小于 $k$ 个，说明此方案不可行。
+            \newline
+            第五题：球迷购票问题
+            \newline
+            以前讲过。。。
+            先求出总方案数，易得为 $\dbinom{n+m}{m}$ 。
+            根据以前讲课的样例，这个问题等价于从点 $(0,0)$ 走到点 $(m,n)$ 。（没图，自行脑补）
+            且满足道路不会经过（包括碰到）直线 $y=x+1$ ，不考虑这个限制的话，
+            方案数就是上面的 $\dbinom{n+m}{m}$ 然后每一个不合法的方案都可以转化为一条从点 $(-1,1)$ 到点 $(n,m)$ 的道路。
+            而我们也可以知道这个方案数是 $\dbinom{n-1+m+1}{m+1}$ 的。于是我们就可以得到可行解的个数了。
+            此题需要高精度。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 6} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：０－１序列
+            \newline
+            可以得到每个一出现的位置即是数列 $a_1=1,a_{n+1}=a_n+1$ 的每一项再加一，
+            只要二分数 $n$ 是否可以找到一个数 $x$ 使得 $n=\frac{(x+1)x}{2}+1$ 即可。
+            \newline
+            第二题：消除隐藏线
+            \newline
+            竟然没数据。。。
+            线段树维护一波，轻松过样例。
+            \newline
+            第三题：电缆老板
+            \newline
+            二分，为了精度可以提前乘一百。
+            \newline
+            第四题：Ｌ－ＧＡＰ子串问题
+            \newline
+            要枚举两边的 $u$ 串，各种玄学，搞不懂。
+            \newline
+            第五题：阿Ｑ的洗衣店
+            \newline
+            乱搞过了，就没管了。
+            \newline
+            第六题：产品加工
+            \newline
+            这里只有三种装置，考虑它们的相对位置，记下 $A$ 在 $B$ 与 $C$ 应在的位置的个数，其他以此类推。
+            互相搞反的可以一次换回，最后剩下的三个数一定会相等，易得每两次可解决一组。
+        } \\
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 8} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：邹忌讽齐王纳谏
+            \newline
+            恶心模拟。。。
+            \newline
+            第二题：密码子的翻译
+            \newline
+             $DP$ 。
+            \newline
+            第三题：两只塔姆沃斯牛
+            \newline
+            暴搜，注意超过一万步即为无解。
+            \newline
+            第四题：失落的神庙
+            \newline
+            由递推公式我们可以得到实际只需要求出 $log_{2}n$ 项，可以用 $std::map$ 或者自己写的哈希表记一下就可以了。
+            （其实不记都没事）
+        } \\
+        \hline
+        城市网络 & LOJ6192 & Accepted & Sept 13 & last common ancestor & 倍增 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            很有意思，先在原树上倍增，维护一个最大值。
+            然后按每个节点连上第一个权值大于自己的祖先的方式建一棵新树（注意零号点的权职为 $+\infty$）。
+            然后再在新树上倍增，找到我们需要的那段（注意判零的情况）。
+            做了这题才发现我对于倍增可以维护的信息知道的太少，查询也一知半解。
+        } \\
+        \hline
+        树的统计 & ZJOI2008 LUOGU2590 & Accepted & Sept 14 & segment tree & 树链剖分 & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            树链剖分模板题，欠下的债总归是要还的。。。
+            树除了可以用 $dfs$ 序划分以外还有一种划分就是轻重链剖分了，
+            考虑在每个点的子节点中选子树大小最大的为重儿子，其余为轻儿子。
+            把每条重链的节点放在一起保存。又因为某些特殊的性质，轻链不会超过 $log_{2}n$ 条。
+            这时我们就可以在 $log_{2}^{2}{n}$ 的复杂度完成一次修改或询问。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 9} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：异或
+            \newline
+            考虑每个点对于$X^{\Delta}_1$的贡献，发现这个数会被异或$\dbinom{depth_i+\Delta-1}{\Delta-1}$次。
+            这样当这个数是偶数时就没有贡献了。
+            所以我们只用知道这个数$mod\ 2$时的值就可以了。
+            根据$Lucas$定理，$\dbinom{n}{m}=\dbinom{\frac{n}{p}}{\frac{m}{p}} \cdot \dbinom{n\ mod\ p}{m\ mod\ p}\ mod\ p$
+            当$p$是二时，模二结果要为零$n$和$m$的二进制必须满足存在一位$b$使得$n_b=0,m_b=1$。
+            转化成$depth_i$与$\Delta-1$之间的关系就是要满足它们二进制中存在一位同时为一。
+            得到了这个结论，求满足条件的数的异或和即可。
+            \newline
+            第二题：欧拉函数
+            \newline
+            考虑每个$d_k$会出现的次数，可以考虑$\frac{n}{d_k}$分解出$k$个数有多少种方案。
+            题解告诉我们分解方案数$f(p^a)=\dbinom{a+k-1}{k-1}$同时这是个积性函数，可以递推。
+            最后考虑答案$\phi(d_k)$，这也是个积性函数，所以递推即可。
+            \newline
+            第三题：序列
+            \newline
+            把$m$分解质因数可以发现答案序列每一位上放的质因子与另一个质因子是无关的，所以答案可以看做是一个积性函数。
+            所以只要给$m$分解质因数就可以了，题中$1\leq m \leq 10^{18}$。可以分成$10^6\times 10^6 \times 10^6$，
+            我们可以先处理小于$10^6$的质因子，然后分情况讨论。要么剩下一个质数，可以用$Miller-Rabin$素数判定。
+            要么是质数的平方，开个根再平方也可以弄出来。要么就是$p\times q$的形式，也可以弄。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 11} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：卫星连接
+            \newline
+            原题，最小生成树。
+            \newline
+            第二题：奇袭西欧
+            \newline
+            以前好像没见过这样的题。
+            二分，每次判定跑一个最短路，权值超过二分的值记为一，否则为零。
+            如果最短路大于$k$则说明不行，不然就可以。
+            \newline
+            第三题：叹息之墙
+            \newline
+            模板，求强连通分量。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 11(in afternoon)} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            \subsection*{A}
+            大组合数取模，用$Lucas$定理解决，复杂度$O(p+lg(p))$。
+            \newline
+            $$\dbinom{n}{m} mod\ p = \dbinom{\frac{n}{p}}{\frac{m}{p}}\ \dbinom{n\ mod\ p}{m\ mod\ p}\ mod\ p$$
+            \subsection*{B}
+            求出树中每个结点的子树大小，排序之后作为字符串哈希。比较哈希值即可，但是不确定哈希值相同的树的形态一定完全一致。
+            \subsection*{C}
+            暴力求值（好像叫做计数排序），对于每个数字使用一棵线段树维护它的分布位置。每次修改的时候，查询出各个数字在区间里的个数，然后再依次插入回原区间。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 12} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：抢掠计划
+            \newline
+            先缩点，然后就很好做了。
+            \newline
+            第二题：项链
+            \newline
+            字符串哈希。
+            \newline
+            第三题：智捅马蜂窝
+            \newline
+            暴力建图。
+            \newline
+            第四题：逛公园
+            \newline
+            要想得到没有环的图，必须要保证每个点的出度分别是$1,2,3,\cdots,n$。
+            然后就不知道怎么做了。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 14} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：最近公共祖先
+            \newline
+            卡空间。。。
+            好像是分成一块一块的跳着找，因为有祖先的序号一定小于自己这个条件。
+            \newline
+            第二题：无题
+            \newline
+            树剖$O(nlog_{2}^{2}{n})$，线段树合并$O(nlog_{2}{n})$。
+            \newline
+            第三题：游走
+            \newline
+            因为数值不会小于零，所以当数字清零时可以视作重新开始。
+            考虑最后会对答案产生贡献的点。发现它们一定是一段连续的，
+            选了父亲节点，下面的子树就只能选一整段，不能有一些不选。
+            这样可以树形$DP$。用$f_i$表示点$i$能取得的最大收益，
+            $g_i$为选中点$i$且使答案区间满足上述要求能取得的最大收益。
+            转移是$f_x=max\{\sum_{\forall i \in son_x}{f_i},0\}$,
+            $g_x=max\{\sum_{\forall i \in son_x}{g_i},f_x\}$
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 15} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：磁力阵
+            \newline
+            迭代搜索，不会弄。
+            \newline
+            第二题：虫洞
+            \newline
+            除了虫洞之外其他点都可以直接计算距离，
+            那么可以把虫洞和起点终点设为关键点，把它们之间的距离（不使用虫洞）两两算出来
+            （注意所有点到虫洞进入点都是不可到达的，因为会立刻传送到另一个地方，
+            而虫洞之间距离为零），
+            最后用$floyd$求最短路即可。
+            \newline
+            第三题：电路维修
+            \newline
+            方向对的边距离设为零，否则为一，求最短路或$BFS$即可。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 18} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：$Count$
+            \newline
+            令$f(x)=\prod_{i=1}^{2m}{x_i}$，
+            发现对于一组$f(x)>n^m$对应的有一组$g(x)=\prod_{i=1}^{2m}{\frac{n}{x_i}}<n^m$。
+            所以大于和小于$n^m$的方案数相等，这样只用求出$f(x)=n^m$的方案数就可以了。
+            对$n$质因数分解，对每个质因子求分配的方案数。
+            \newline
+            第二题：$Delete$
+            \newline
+            考虑贪心地删除每次最长递增子序列和最长下降子序列中的更长者。
+            可以证明这样删除的次数不会超过$\sqrt{n}$次，最后复杂度为$O(\sqrt{n}log_2{n})$。
+            \newline
+            第三题：$Floor$
+            \newline
+            考前才讨论了这个，考场竟然没推出来。。。
+            记住斐波那契的通项$f_i=\frac{1}{\sqrt{5}}(\frac{1+\sqrt{5}}{2})^i\frac{1}{\sqrt{5}}(\frac{1-\sqrt{5}}{2})^i$。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 19} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：币
+            \newline
+            概率$DP$。记$f_{i,j}$为总共有$i$堆，第$j$堆的概率。
+            转移方程为$f_{i,j}=1-0.5\times (f_{i-1,j}+f_{i-1,j-1})$，
+            特殊情况$f_{1,1}=1-0.5\times f_{i-1,1}, f_{i,i}=1-0.5\times f_{i-1,i-1}$。
+            提前求出概率，对每个询问乘上求出的概率即可。
+            \newline
+            第二题：$\Delta$
+            \newline
+            可以求出原图和补图的三元环总数，为$\frac{n(n-1)(n-2)}{6}-\frac{\sum_{i=1}^n{|e_i|\times (n-1-|e_i|)}}{2}$，
+            其中$|e_i|$是点$i$在原图中的边数，意义是原图中存在的一条边和补图中存在的一条边合在一起一定不能组成三元环。
+            除二是因为每条边会从它的两个定点各枚举一次。然后题解用了一个奇奇怪怪的类似于哈希的方法加速求出了原图中的三元环个数。
+            \newline
+            第三题：数
+            \newline
+            搜索！？（占坑）
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 22} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：溢出
+            \newline
+            模拟题，读入又出锅了。
+            \newline
+            第二题：函数变换
+            \newline
+            考虑到$n$最大有$10^9$所以不能线性做。
+            考虑每次暴力求欧拉函数值，然后用$stl::map$记下来。
+            复杂度大致为$O(\sqrt{n}log_2{n})$。
+            \newline
+            第三题：跳跃切除子序列
+            \newline
+            貌似也有点暴力，不会做。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 25} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：排序
+            \newline
+            。。。
+            \newline
+            第二题：图
+            \newline
+            未改。
+            \newline
+            第三题：或
+            \newline
+            题中要求的是$\sum_{l=0}^{n}\sum_{r=l}^{n}f(l\lor r)$，其中$f(x)$表示$x$的二进制中一的个数。
+            考虑给它变形，成为$\sum_{l=0}^{n}\sum_{r=l}^{n}f(l)+f(r)-f(l\land r)$。
+            拆出前面两项，得到$\sum_{l=0}^{n}\sum_{r=l}^{n}f(l)+f(r)$，变形为$\sum_{l=0}^{n}(n-l+1)f(l)+\sum_{r=0}^{n}(r+1)f(r)$，
+            发现两项可以合并为$\sum_{i=0}^{n}(n+2)f(i)$。至此我们再来考虑后一项$-\sum_{l=0}^{n}\sum_{r=l}^{n}f(l \land r)$，
+            观察每一个数字的二进制，例如$0~9$:
+            \newline
+            $$0 0 0 0 0$$
+            $$0 0 0 0 1$$
+            $$0 0 0 1 0$$
+            $$0 0 0 1 1$$
+            $$0 0 1 0 0$$
+            $$0 0 1 0 1$$
+            $$0 0 1 1 0$$
+            $$0 0 1 1 1$$
+            $$0 1 0 0 0$$
+            $$0 1 0 0 1$$
+            \newline
+            竖着看可以发现数字上第$i$位上是不是一是有规律可循的。
+            存在一个长度为$2^i$的循环节，其中后半部分全是一，前半部分全是零。
+            我们可以按每个二进制位来统计答案，发现每部分答案成一个等差数列，每次减少一，所以我们只要知道每一位上有多少个一，就能得到答案。
+            而我们已经知道存在循环节，可以以常数级别的代价求出每一位上一的个数，记为$h(i)$。
+            前面的项也可以用$h(i)$表示，最后得到的式子是$\sum_{i=0}^{n}(n+2)h(i)-\frac{h(i)(h(i)+1)}{2}$。
+            这样我们就可以在$O(x)$的复杂度内求出答案。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 26} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：基因突变
+            \newline
+            答案就是$Fail$树树上节点的深度之和，用$KMP$求出前缀，记为$pre_i$。
+            可以得到$f_i=1+f_{pre_i},ans=\sum f_i$。
+            \newline
+            第二题：力场护盾
+            \newline
+            需要坐标系的变换，未改。
+            \newline
+            第三题：时空传送
+            \newline
+            不懂。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 27} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：精灵加护
+            \newline
+            贪心，每个武器选能打掉的威力最大的怪就好，总不会亏的。
+            还和$Hall$定理有关。
+            \newline
+            第二题：相位幻击
+            \newline
+            树链剖分，如果每个点记下从他到根节点的异或和的话可以$O(nlog^2n)$做，
+            记一个单独的值的话也可以$O(nlog_2^2n)$做。
+            \newline
+            第三题：抗拒黄泉
+            \newline
+            求期望，不会做。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 29} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：完全平方数
+            \newline
+            把每个质因子，质因子的平方，立方。。。的个数暴力求出来就好了。
+            \newline
+            第二题：卡片游戏
+            \newline
+            要求连续的一段卡片平均值$a$满足$l\leq a \leq r$.
+            像这种题一般要先消掉一边限制才好做。
+            但是我还没改？
+            \newline
+            第三题：围栏问题
+            \newline
+            $DP$，占坑。
+        } \\
+        \hline
+        $Quiz$ & \multicolumn{5}{l}{2017. 9. 27} & \\
+        \hline
+        \rowcolor[gray]{.7}\multicolumn{7}{|p{23cm}|}{
+            第一题：$Clique$
+            \newline
+            把一个点看作一段$(x_i-w_i,x_i+w_i)$的区间，发现可以连边的的点形成的区间一定不相交，且不相交的区间就一定可以连边，
+            可以$O(nlogn)$的时间内求出最多的不相交区间数。
+            \newline
+            第二题：$Mod$
+            \newline
+            区间额外维护一个最大值，当模数大于最大值时就不需要继续递归下去了。
+            复杂度不会证。
+            \newline
+            第三题：$Number$
+            \newline
+            可以知道随着$n$的增加答案是不降的。
+            所以满足条件的$n$一定是一整段区间。
+            然后我就不知道了。
+        } \\
+        \hline
+        Name & Number & Status & Time & Algorithm & Tag & Other \\
+        \hline
+\end{longtable}
+
+\begin{figure}[htb]
+    \center{\includegraphics[width=4cm]{ftg.png}}
+\end{figure}
+    
+\end{document}
