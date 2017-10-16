@@ -1,0 +1,21 @@
+@echo off
+gen.py 1 10
+gen.py 2 20
+gen.py 3 50
+gen.py 4 100
+gen.py 5 200
+gen.py 6 400
+gen.py 7 500
+gen.py 8 800
+gen.py 9 1000
+gen.py 10 1000
+gen.py 11 20000
+gen.py 12 40000
+gen.py 13 50000
+gen.py 14 80000
+gen.py 15 100000
+gen.py 16 200000
+gen.py 17 300000
+gen.py 18 300000
+gen.py 19 300000
+gen.py 20 300000

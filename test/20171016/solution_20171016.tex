@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{ctex}
+
+\title{Solution}
+\author{Dez}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{AddEdges Loves Working}
+简单的贪心，把每个时间段按照开始时间排序。
+对于每个起点，在线段树中寻找可以满足条件的最早出现的点，如果存在满足条件的点，则删去，给答案加一。
+这样贪心是最优的，然后把自己的终点加入线段树中。
+时间复杂度$O(nlogn)$，由于离散化和线段树，常数非常的大。（好歹还是过了）
+
+\section{LargeDumpling Loves Graphs}
+固定路径条数的最短路。
+我都想到$Floyd$去求解了，竟然没有想到矩阵乘法去优化。
+由于点数极小，实际上只需要把邻接矩阵用快速幂转移即可。
+时间复杂度$O(n^3logn)$，可以承受。
+
+\section{jvjhfhg Loves Sequence}
+看到这种题就应该想到统计每个点的贡献。
+发现每个点的贡献还和区间的起点和终点有关，我们要去除这个限制。
+解法是把询问按照终点坐标排序，然后从头开始枚举每个点作为起点的贡献。
+发现题中“区间中第$k$大的数不小于$m$”这个条件等价于区间中至少有$k$个大于$m$的数。
+所以一个较短的区间满足要求那么由它扩展的更大的区间也一定满足条件。
+在这里我们可以对于每个右端点，找到满足条件的最靠右的左端点，那么它左边的点作为左端点也一定满足，
+可以把它们的贡献都加上一。到了一个询问的时候统计一下答案即可。
+使用线段树维护贡献，端点可以用二分法或者尺取法。时间复杂度$O(nlogn)$。
+
+\end{document}
