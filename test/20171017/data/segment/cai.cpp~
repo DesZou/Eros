@@ -1,0 +1,91 @@
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+
+#define DEBUG(args...) fprintf(stderr, args)
+
+#define FOR(i, l, r) for(int i=(l), i##_end=(r); i<=i##_end; ++i)
+#define REP(i, l, r) for(int i=(l), i##_end=(r); i< i##_end; ++i)
+#define DFR(i, l, r) for(int i=(l), i##_end=(r); i>=i##_end; --i)
+#define DRP(i, l, r) for(int i=(l), i##_end=(r); i> i##_end; --i)
+
+typedef long long LL;
+
+template<class T>T Min(const T &a, const T &b) {return a < b ? a : b;}
+template<class T>T Max(const T &a, const T &b) {return a > b ? a : b;}
+template<class T>bool Chkmin(T &a, const T &b) {return a > b ? a=b, 1 : 0;}
+template<class T>bool Chkmax(T &a, const T &b) {return a < b ? a=b, 1 : 0;}
+
+namespace FI {
+	const int SIZE = 1 << 15 | 1;
+	char buf[SIZE], *front, *back;
+	void NextChar(char &c) {
+		if(front == back) back = (front=buf) + fread(buf, 1, SIZE, stdin);
+		c = front==back ? (char)EOF : *front++;
+	}
+	void NextInt(int &x) {
+		char c;
+		for(NextChar(c); c>'9'||c<'0'; NextChar(c)) ;
+		for(x=0; c>='0'&&c<='9'; NextChar(c)) x = (x<<3)+(x<<1)+c-'0';
+	}
+}
+
+const int SN = 100000 + 47;
+
+struct bit {
+	int a[SN];
+
+	bit();
+	void Add(int, int);
+	int Ask(int);
+};
+
+bit add, same, times;
+int a[SN], n, m, q;
+double sum[SN];
+
+int main() {
+
+	freopen("segment.in", "r", stdin);
+	freopen("segment.out", "w", stdout);
+
+	int x, y, z, t;
+
+	FI::NextInt(n), FI::NextInt(m), FI::NextInt(q);
+	FOR(i, 1, n) FI::NextInt(a[i]);
+	FOR(i, 1, m) {
+		FI::NextInt(t), FI::NextInt(x), FI::NextInt(y), FI::NextInt(z);
+		if(t & 1)
+			add.Add(x, z), add.Add(y + 1, -z);
+		else {
+			same.Add(x, z), same.Add(y + 1, -z);
+			times.Add(x, 1), times.Add(y + 1, -1);
+		}
+	}
+
+	FOR(i, 1, n) {
+		x = times.Ask(i), y = add.Ask(i), z = same.Ask(i);
+		if(x) sum[i] = sum[i - 1] + 1.0 * z / x + 1.0 * y / (x + 1);
+		else sum[i] = sum[i - 1] + a[i] + y;
+	}
+
+	FOR(i, 1, q)
+		FI::NextInt(x), FI::NextInt(y), printf("%.20lf\n", sum[y] - sum[x - 1]);
+
+	return 0;
+
+}
+
+bit::bit() {
+	memset(a, 0, sizeof a);
+}
+
+void bit::Add(int p, int x) {
+	while(p <= n) a[p] += x, p += p & -p;
+}
+
+int bit::Ask(int p) {
+	int ret = 0;
+	while(p) ret += a[p], p -= p & -p;
+	return ret;
+}
