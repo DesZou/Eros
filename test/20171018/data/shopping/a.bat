@@ -1,0 +1,1 @@
+for /L %%i in (1,1,10) do ren shopping%%i.ans shopping%%i.out

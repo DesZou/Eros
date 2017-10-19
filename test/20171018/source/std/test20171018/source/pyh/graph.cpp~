@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+
+typedef long long LL;
+
+#define FOR(i, a, b) for (int i = (a), i##_END_ = (b); i <= i##_END_; ++i)
+#define DNF(i, a, b) for (int i = (a), i##_END_ = (b); i >= i##_END_; --i)
+
+template <typename Tp> void in(Tp &x) {
+	char ch = getchar(), f = 1; x = 0;
+	while (ch != '-' && (ch < '0' || ch > '9')) ch = getchar();
+	if (ch == '-') ch = getchar(), f = -1;
+	while (ch >= '0' && ch <= '9') x = x * 10 + ch - '0', ch = getchar();
+	x *= f;
+}
+
+template <typename Tp> Tp Max(const Tp &x, const Tp &y) {return x > y ? x : y;}
+template <typename Tp> Tp Min(const Tp &x, const Tp &y) {return x < y ? x : y;}
+template <typename Tp> bool chkmax(Tp &x, Tp y) {return x >= y ? 0 : (x=y, 1);}
+template <typename Tp> bool chkmin(Tp &x, Tp y) {return x <= y ? 0 : (x=y, 1);}
+
+const int MAXN = 110;
+
+int n, m, e;
+int f[MAXN][MAXN], tmp[MAXN][MAXN], ret[MAXN][MAXN];
+
+void mul(int A[MAXN][MAXN], int B[MAXN][MAXN], int C[MAXN][MAXN])
+{
+	memset(tmp, 0x3f, sizeof tmp);
+	FOR(i, 1, n) FOR(j, 1, n) FOR(k, 1, n)
+		chkmin(tmp[i][j], A[i][k] + B[k][j]);
+	memcpy(C, tmp, sizeof tmp);
+}
+
+void power()
+{
+	//FOR(i, 1, n) ret[i][i] = 0x3f3f3f3f;
+	bool fir = true;
+	
+	while (e) {
+		if (e & 1) {
+			if (fir) memcpy(ret, f, sizeof f), fir = false;
+			else mul(ret, f, ret);
+		}
+		mul(f, f, f);
+		e >>= 1;
+	}
+}
+
+int main()
+{
+	freopen("graph.in", "r", stdin);
+	freopen("graph.out", "w", stdout);
+	
+	in(n); in(m); in(e);
+
+	memset(f, 0x3f, sizeof f);
+	
+	FOR(i, 1, m) {
+		int u, v, w;
+		in(u); in(v); in(w);
+		chkmin(f[u][v], w); chkmin(f[v][u], w);
+	}
+
+	power();
+	
+	int q; in(q);
+	while (q--) {
+		int u, v; in(u); in(v);
+		int t = ret[u][v];
+		if (t == 0x3f3f3f3f) puts("-1");
+		else printf("%d\n", t);
+	}
+	
+	return 0;
+}

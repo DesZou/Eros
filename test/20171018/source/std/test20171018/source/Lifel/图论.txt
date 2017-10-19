@@ -1,0 +1,4 @@
+MST
+vijos1234 求使图中存在k的联通块的最小代价 MST+贪心
+vijos1579 已知最小生成树求最小完全图 逆向Kruskal
+bzoj1083&&vjios1190[SCOI2005]繁忙的都市 二分+MST
