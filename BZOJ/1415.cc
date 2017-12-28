@@ -29,8 +29,6 @@ template<class T> T min(const T &a, const T &b) {
     return a < b? a : b;
 }
 
-
-
 template<class T> bool chkmax(T &a, const T &b) {
     return a < b? a = b, 1 : 0;
 }
