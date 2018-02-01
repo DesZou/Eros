@@ -8,6 +8,13 @@ TODO
 
 - [x] ~~概率动归~~
 - [ ] 多项式乘法
+- [ ] 字符串
+  - Manacher
+  - Trie
+  - Suffix Automaton
+  - Suffix Array
+  - Aho-Corasick
+- [ ] 数据结构
 - [ ] 欧拉筛、杜教筛和洲阁筛
 
 SAYING
